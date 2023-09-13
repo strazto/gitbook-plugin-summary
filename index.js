@@ -9,14 +9,16 @@ const {
   isReadmeExistingInDir
 } = require('./fs')
 
+const { resolve } = require('path');
+
 const print = str => x => { console.log(str, x); return x }
 
 module.exports = {
   hooks: {
     init: async function () {
       try {
-        const root = this.resolve('')
-        const config = getConfig(root, this.config)
+        const root = resolve('')
+        const config = getConfig(root)
 
         await plan(config)
           .run()
@@ -58,15 +60,16 @@ const renderEntry = config => file =>
     dirEntry(config.readmeFilename)
   )
 
-const getConfig = (root, config) => {
-  const readmeFilename = config.get('structure.readme')
-  const bookTitle = config.get('title')
+const getConfig = (root) => {
+  const readmeFilename = 'README.md'
+  const summaryFilename = 'SUMMARY.md'
+  const bookTitle = 'My Book'
 
   return {
     root,
-    bookTitle: Maybe.fromNullable(bookTitle),
+    bookTitle: 'My Book',
     isReadme: path => path.includes(readmeFilename),
+    summaryFilename,
     readmeFilename,
-    summaryFilename: config.get('structure.summary')
   }
 }
