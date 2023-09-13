@@ -53,10 +53,10 @@ const depthEntries = (depth, entries) =>
 const sectionEntries = (title, path) => `\n## ${title}\n`
 
 const disabledEntries = (depth, title) =>
-  depthEntries(depth, `- [${title}]()`)
+  depthEntries(depth, `* [${title}]()`)
 
 const linkEntries = (depth, title, path) =>
-  depthEntries(depth, `- [${title}](${path})`)
+  depthEntries(depth, `* [${title}](${path})`)
 
 const getFileDepth = path => path.match(/\//g).length
 
